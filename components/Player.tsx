@@ -1,6 +1,8 @@
 import React from "react";
-import { ChevronDown, MessageCircle, Video } from "lucide-react";
-import ReactPlayer from "react-player";
+import { MessageCircle } from "lucide-react";
+import Header from "./Header";
+import Video from "./Video";
+import Module from "./Module";
 
 export default function Player() {
   return (
@@ -8,12 +10,7 @@ export default function Player() {
       <div className="flex w-[1100px] flex-col gap-6">
         <div className="flex items-center justify-between">
           {/* Header */}
-          <div className="flex flex-col gap-1">
-            <h1 className="text-2xl font-bold">Fundamentos </h1>
-            <span className="text-sm text-zinc-400">
-              Módulo "Desvendando o Redux"
-            </span>
-          </div>
+          <Header />
 
           <button className="flex items-center gap-2 rounded-lg bg-violet-500 px-3 py-2 text-small font-medium text-white hover:bg-violet-600">
             <MessageCircle className="h-4 w-4" /> Deixar feedback
@@ -22,68 +19,27 @@ export default function Player() {
 
         <main className="relative flex overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow pr-80">
           <div className="flex-1">
-            <div className="w-full bg-zinc-950 aspect-video">
-              <ReactPlayer
-                width={"100%"}
-                height={"100%"}
-                controls
-                url={"https://www.youtube.com/watch?v=-Dop0mKgKPo"}
-              />
-            </div>
+            <Video />
           </div>
           <aside className="w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-auto scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-            <div>
-              <button className="flex w-full items-center gap-3 bg-zinc-800 p-4">
-                <div className="flex h-10 w-10 rounded-full items-center justify-center bg-zinc-950 text-xs">
-                  1
-                </div>
-
-                <div className="flex flex-col gap-1 text-left">
-                  <strong>Desvendando o Redux</strong>
-                  <span className="text-sm text-zinc-400 ">12 aulas</span>
-                </div>
-
-                <ChevronDown size={20} className="ml-auto text-zinc-400" />
-              </button>
-
-              <nav className="relative flex flex-col gap-4 p-6">
-                <button className="flex items-center gap-3 text-sm text-zinc-400">
-                  <Video className="h-4 w-4 text-zinc-500" />
-                  <span>Fudamentos do Redux</span>
-                  <span className="ml-auto font-mono text-sn text-zinc-500 ">
-                    09:13
-                  </span>
-                </button>
-                <button className="flex items-center gap-3 text-sm text-zinc-400">
-                  <Video className="h-4 w-4 text-zinc-500" />
-                  <span>Fudamentos do Redux</span>
-                  <span className="ml-auto font-mono text-sn text-zinc-500 ">
-                    09:13
-                  </span>
-                </button>
-                <button className="flex items-center gap-3 text-sm text-zinc-400">
-                  <Video className="h-4 w-4 text-zinc-500" />
-                  <span>Fudamentos do Redux</span>
-                  <span className="ml-auto font-mono text-sn text-zinc-500 ">
-                    09:13
-                  </span>
-                </button>
-                <button className="flex items-center gap-3 text-sm text-zinc-400">
-                  <Video className="h-4 w-4 text-zinc-500" />
-                  <span>Fudamentos do Redux</span>
-                  <span className="ml-auto font-mono text-sn text-zinc-500 ">
-                    09:13
-                  </span>
-                </button>
-                <button className="flex items-center gap-3 text-sm text-zinc-400">
-                  <Video className="h-4 w-4 text-zinc-500" />
-                  <span>Fudamentos do Redux</span>
-                  <span className="ml-auto font-mono text-sn text-zinc-500 ">
-                    09:13
-                  </span>
-                </button>
-              </nav>
-            </div>
+            <Module
+              moduleIndex={0}
+              key={1}
+              title="Desvendando o Redux"
+              amountOfLessons={20}
+            />
+            <Module
+              moduleIndex={1}
+              key={1}
+              title="Desvendando o Redux"
+              amountOfLessons={20}
+            />
+            <Module
+              moduleIndex={2}
+              key={1}
+              title="Desvendando o Redux"
+              amountOfLessons={20}
+            />
           </aside>
         </main>
       </div>
