@@ -8,6 +8,7 @@ import {
 import { ChevronDown, Video } from "lucide-react";
 import React from "react";
 import Lesson from "./Lesson";
+import { useAppSelector } from "@/store";
 
 interface ModuleProps {
   moduleIndex: number;
@@ -20,6 +21,10 @@ export default function Module({
   amountOfLessons,
   moduleIndex,
 }: ModuleProps) {
+  const lessons = useAppSelector(
+    (state) => state.player.course.modules[moduleIndex].lessons
+  );
+
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value={moduleIndex.toString()}>
@@ -36,11 +41,13 @@ export default function Module({
           </div>
         </AccordionTrigger>
         <AccordionContent className="relative flex flex-col gap-4 p-6">
-          <Lesson title="Desvendando o Redux" duration="09:28" />
-          <Lesson title="Desvendando o Redux" duration="09:28" />
-          <Lesson title="Desvendando o Redux" duration="09:28" />
-          <Lesson title="Desvendando o Redux" duration="09:28" />
-          <Lesson title="Desvendando o Redux" duration="09:28" />
+          {lessons.map((lesson, index) => (
+            <Lesson
+              key={lesson.id}
+              title={lesson.title}
+              duration={lesson.duration}
+            />
+          ))}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
