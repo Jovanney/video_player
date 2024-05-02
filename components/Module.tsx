@@ -35,7 +35,7 @@ export default function Module({
   });
 
   return (
-    <Accordion type="single" collapsible>
+    <Accordion defaultValue="0" type="single" collapsible>
       <AccordionItem value={moduleIndex.toString()}>
         <AccordionTrigger className="flex w-full items-center gap-3 bg-zinc-800 p-4">
           <div className="flex h-10 w-10 rounded-full items-center justify-center bg-zinc-950 text-xs">
