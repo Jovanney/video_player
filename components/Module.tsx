@@ -29,6 +29,11 @@ export default function Module({
 
   const dispatch = useDispatch();
 
+  const { currentLessonIndex, currentModuleIndex } = useAppSelector((state) => {
+    const { currentLessonIndex, currentModuleIndex } = state.player;
+    return { currentLessonIndex, currentModuleIndex };
+  });
+
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value={moduleIndex.toString()}>
@@ -45,16 +50,22 @@ export default function Module({
           </div>
         </AccordionTrigger>
         <AccordionContent className="relative flex flex-col gap-4 p-6">
-          {lessons.map((lesson, lessonIndex) => (
-            <Lesson
-              key={lesson.id}
-              title={lesson.title}
-              duration={lesson.duration}
-              onPlay={() => {
-                dispatch(play([moduleIndex, lessonIndex]));
-              }}
-            />
-          ))}
+          {lessons.map((lesson, lessonIndex) => {
+            const isCurrent =
+              currentModuleIndex === moduleIndex &&
+              currentLessonIndex === lessonIndex;
+            return (
+              <Lesson
+                key={lesson.id}
+                title={lesson.title}
+                duration={lesson.duration}
+                onPlay={() => {
+                  dispatch(play([moduleIndex, lessonIndex]));
+                }}
+                isCurrent={isCurrent}
+              />
+            );
+          })}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
