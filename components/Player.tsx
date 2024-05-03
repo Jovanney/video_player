@@ -6,7 +6,7 @@ import Module from "./Module";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "@/lib/axios";
-import { loadCourse, start } from "@/store/slices/player";
+import { loadCourse } from "@/store/slices/player";
 
 export default function Player() {
   const dispatch = useAppDispatch();
