@@ -1,12 +1,11 @@
-import { useAppSelector } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { next, useCurrentLesson } from "@/store/slices/player";
 import React from "react";
 import ReactPlayer from "react-player";
-import { useDispatch } from "react-redux";
 
 export default function Video() {
   const { currentLesson } = useCurrentLesson();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleNextLesson = () => {
     dispatch(next());

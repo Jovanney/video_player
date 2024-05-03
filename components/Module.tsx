@@ -8,8 +8,7 @@ import {
 import { ChevronDown, Video } from "lucide-react";
 import React from "react";
 import Lesson from "./Lesson";
-import { useAppSelector } from "@/store";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { play } from "@/store/slices/player";
 
 interface ModuleProps {
@@ -27,7 +26,7 @@ export default function Module({
     (state) => state.player.course?.modules[moduleIndex].lessons
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { currentLessonIndex, currentModuleIndex } = useAppSelector((state) => {
     const { currentLessonIndex, currentModuleIndex } = state.player;

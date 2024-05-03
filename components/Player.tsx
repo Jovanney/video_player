@@ -3,19 +3,16 @@ import { MessageCircle } from "lucide-react";
 import Header from "./Header";
 import Video from "./Video";
 import Module from "./Module";
-import { useAppSelector } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "@/lib/axios";
-import { useDispatch } from "react-redux";
-import { start } from "@/store/slices/player";
+import { loadCourse, start } from "@/store/slices/player";
 
 export default function Player() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    api.get("coursers/1").then((response) => {
-      dispatch(start(response.data));
-    });
+    dispatch(loadCourse());
   }, []);
 
   const modules = useAppSelector((state) => state.player.course?.modules);
