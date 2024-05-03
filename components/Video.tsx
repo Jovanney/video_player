@@ -18,7 +18,7 @@ export default function Video() {
         height={"100%"}
         controls
         onEnded={handleNextLesson}
-        url={`https://www.youtube.com/watch?v=${currentLesson.id}`}
+        url={`https://www.youtube.com/watch?v=${currentLesson?.id}`}
       />
     </div>
   );

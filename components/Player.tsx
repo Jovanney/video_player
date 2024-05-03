@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MessageCircle } from "lucide-react";
 import Header from "./Header";
 import Video from "./Video";
 import Module from "./Module";
 import { useAppSelector } from "@/store";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { api } from "@/lib/axios";
+import { useDispatch } from "react-redux";
+import { start } from "@/store/slices/player";
 
 export default function Player() {
-  const modules = useAppSelector((state) => state.player.course.modules);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    api.get("coursers/1").then((response) => {
+      dispatch(start(response.data));
+    });
+  }, []);
+
+  const modules = useAppSelector((state) => state.player.course?.modules);
 
   return (
     <div className="h-screen bg-zinc-950 text-zinc-50 flex justify-center items-center">
@@ -25,14 +36,15 @@ export default function Player() {
           </div>
           <aside className="w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 ">
             <ScrollArea className="h-full">
-              {modules.map((module, index) => (
-                <Module
-                  moduleIndex={index}
-                  key={module.id}
-                  title={module.title}
-                  amountOfLessons={module.lessons.length}
-                />
-              ))}
+              {modules &&
+                modules.map((module, index) => (
+                  <Module
+                    moduleIndex={index}
+                    key={module.id}
+                    title={module.title}
+                    amountOfLessons={module.lessons.length}
+                  />
+                ))}
             </ScrollArea>
           </aside>
         </main>
