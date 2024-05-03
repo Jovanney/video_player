@@ -8,8 +8,7 @@ import {
 import { ChevronDown, Video } from "lucide-react";
 import React from "react";
 import Lesson from "./Lesson";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { play } from "@/store/slices/player";
+import { useStore } from "@/zustand-store";
 
 interface ModuleProps {
   moduleIndex: number;
@@ -22,16 +21,16 @@ export default function Module({
   amountOfLessons,
   moduleIndex,
 }: ModuleProps) {
-  const lessons = useAppSelector(
-    (state) => state.player.course?.modules[moduleIndex].lessons
+  const { currentLessonIndex, currentModuleIndex, play, lessons } = useStore(
+    (state) => {
+      return {
+        currentLessonIndex: state.currentLessonIndex,
+        currentModuleIndex: state.currentModuleIndex,
+        play: state.play,
+        lessons: state.course?.modules[moduleIndex].lessons,
+      };
+    }
   );
-
-  const dispatch = useAppDispatch();
-
-  const { currentLessonIndex, currentModuleIndex } = useAppSelector((state) => {
-    const { currentLessonIndex, currentModuleIndex } = state.player;
-    return { currentLessonIndex, currentModuleIndex };
-  });
 
   return (
     <Accordion defaultValue="0" type="single" collapsible>
@@ -60,7 +59,7 @@ export default function Module({
                   title={lesson.title}
                   duration={lesson.duration}
                   onPlay={() => {
-                    dispatch(play([moduleIndex, lessonIndex]));
+                    play([moduleIndex, lessonIndex]);
                   }}
                   isCurrent={isCurrent}
                 />

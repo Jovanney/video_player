@@ -3,19 +3,24 @@ import { MessageCircle } from "lucide-react";
 import Header from "./Header";
 import Video from "./Video";
 import Module from "./Module";
-import { useAppDispatch, useAppSelector } from "@/store";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "@/lib/axios";
 import { loadCourse } from "@/store/slices/player";
+import { useStore } from "@/zustand-store";
 
 export default function Player() {
-  const dispatch = useAppDispatch();
+  const { course, load } = useStore((state) => {
+    return {
+      course: state.course,
+      load: state.load,
+    };
+  });
 
   useEffect(() => {
-    dispatch(loadCourse());
+    load();
   }, []);
 
-  const modules = useAppSelector((state) => state.player.course?.modules);
+  // const modules = useAppSelector((state) => state.player.course?.modules);
 
   return (
     <div className="h-screen bg-zinc-950 text-zinc-50 flex justify-center items-center">
@@ -33,8 +38,8 @@ export default function Player() {
           </div>
           <aside className="w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 ">
             <ScrollArea className="h-full">
-              {modules &&
-                modules.map((module, index) => (
+              {course?.modules &&
+                course?.modules.map((module, index) => (
                   <Module
                     moduleIndex={index}
                     key={module.id}
